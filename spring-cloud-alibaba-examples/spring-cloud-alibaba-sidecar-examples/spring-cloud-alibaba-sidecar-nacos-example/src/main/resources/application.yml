@@ -1,0 +1,50 @@
+server:
+  port: 8070
+spring:
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      discovery:
+        server-addr: 192.168.152.128:8848
+#        group: test
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        0:
+          id: nacos-route
+          uri: lb://service-gateway-provider
+          predicates:
+            0:
+              name: Path
+              args:
+                pattern: /nacos/**
+          filters:
+            0: StripPrefix=1
+        1:
+          id: php-route
+          uri: lb://node-service
+          predicates:
+            0:
+              name: Path
+              args:
+                pattern: /php/**
+          filters:
+            0: StripPrefix=1
+
+  application:
+    name: node-service
+sidecar:
+  # 异构微服务的IP
+  ip: 192.168.152.128
+  # 异构微服务的端口
+  port: 5200
+
+  # 异构微服务的健康检查URL
+  health-check-url: http://192.168.152.128:5200/health.json
+management:
+  endpoint:
+    health:
+      show-details: always

@@ -1,0 +1,23 @@
+dubbo:
+  cloud:
+    subscribed-services: spring-cloud-alibaba-dubbo-server
+  protocols:
+    dubbo:
+      port: -1
+  consumer:
+    check: false
+
+spring:
+  application:
+    name: spring-cloud-alibaba-dubbo-client
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      discovery:
+        server-addr: 192.168.152.128:8848
+
+server:
+  port: 38081

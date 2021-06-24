@@ -1,0 +1,23 @@
+server:
+  port: 18087
+
+spring:
+  application:
+    name: service-consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.152.128:8848
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080
+
+feign:
+  sentinel:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
